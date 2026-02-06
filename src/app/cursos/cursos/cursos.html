@@ -4,11 +4,11 @@
   </mat-toolbar-row>
   <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Pesquise" #input>
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="cursos" matSort>
+  <div class="mat-elevation-z8" *ngIf="!isLoading; else loading">
+    <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
@@ -33,6 +33,10 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Selecione quantos cursos por página"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Selecione quantos cursos por página">
+    </mat-paginator>
   </div>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
 </mat-card>

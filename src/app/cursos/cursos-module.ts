@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatPaginator,
     MatCardModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class CursosModule { }
