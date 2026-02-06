@@ -4,7 +4,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { CursosService } from '../services/cursos.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog';
 
 @Component({
   selector: 'app-cursos',
@@ -24,7 +26,8 @@ export class CursosComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private service: CursosService
+    private service: CursosService,
+    public dialog: MatDialog
   ) {}
 
  ngOnInit(): void {
@@ -33,9 +36,9 @@ export class CursosComponent implements OnInit, AfterViewInit {
         this.dataSource.data = dados;
         this.isLoading = false;
       },
-      error: () => {
+     error: (err) => {
         this.isLoading = false;
-        console.error("Erro ao carregar cursos");
+        this.alertError('Erro ao carregar cursos. Tente novamente mais tarde.');
       }
     });
   }
@@ -51,5 +54,11 @@ export class CursosComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  alertError(errorMsg: string) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: errorMsg
+    });
   }
 }
