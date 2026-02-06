@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.table-overrides((
+    background-color: orange,
+    header-headline-color: red,
+  ));
+
+  @include mat.card-overrides((
+    elevated-container-color: orange,
+    elevated-container-elevation: red,
+  ));
+}
+
+.table-cursos {
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 16px;
+}
