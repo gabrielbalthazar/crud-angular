@@ -7,6 +7,7 @@ import { CursosService } from '../services/cursos.service';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
@@ -16,7 +17,7 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
   providers: [CursosService]
 })
 export class CursosComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'nome', 'categoria'];
+  displayedColumns: string[] = ['id', 'nome', 'categoria', 'acoes'];
 
   dataSource = new MatTableDataSource<Curso>([]);
 
@@ -27,24 +28,37 @@ export class CursosComponent implements OnInit, AfterViewInit {
 
   constructor(
     private service: CursosService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
- ngOnInit(): void {
+  ngOnInit() {
     this.service.getListCursos().subscribe({
       next: (dados) => {
         this.dataSource.data = dados;
+
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+
         this.isLoading = false;
       },
-     error: (err) => {
+      error: (err) => {
         this.isLoading = false;
-        this.alertError('Erro ao carregar cursos. Tente novamente mais tarde.');
+        this.alertError('Erro ao carregar cursos.');
       }
     });
   }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  onAddCurso() {
+    this.router.navigate(['cadastro'], { relativeTo: this.route });
   }
 
   applyFilter(event: Event) {

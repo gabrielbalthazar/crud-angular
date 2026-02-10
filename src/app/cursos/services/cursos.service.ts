@@ -1,24 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Curso } from '../model/curso';
-import { delay, pipe, tap } from 'rxjs';
+import { catchError, delay, first, pipe, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CursosService {
 
-  private readonly API = 'http://localhost:3000/cursos';
+  private readonly API = 'api/cursos';
 
   constructor(
-    private httpClient: HttpClient
+    private readonly httpClient: HttpClient
   ) { }
 
   getListCursos() {
+    console.log('1. Service: getListCursos chamado');
     return this.httpClient.get<Curso[]>(this.API)
       .pipe(
-        delay(2000),
-        tap(cursos => console.log(cursos))
+        tap(() => console.log('2. Service: Resposta recebida do servidor')),
       );
   }
 

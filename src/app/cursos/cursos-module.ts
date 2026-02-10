@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { CursosRoutingModule } from './cursos-routing-module';
 import { CursosComponent } from './cursos/cursos';
 import { SharedModule } from '../shared/shared-module';
-
 import { Component, ViewChild } from '@angular/core';
+
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -14,10 +15,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
+import { CursoFormComponent } from './curso-form/curso-form';
+
 
 @NgModule({
   declarations: [
-    CursosComponent
+    CursosComponent,
+    CursoFormComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +40,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatToolbarModule,
     MatProgressSpinnerModule,
     SharedModule,
+    MatIconModule,
+    MatButtonModule,
+    ReactiveFormsModule,
   ]
 })
 export class CursosModule { }
