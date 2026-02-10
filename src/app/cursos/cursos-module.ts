@@ -17,6 +17,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatOption } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 import { CursoFormComponent } from './curso-form/curso-form';
 
@@ -43,6 +45,8 @@ import { CursoFormComponent } from './curso-form/curso-form';
     MatIconModule,
     MatButtonModule,
     ReactiveFormsModule,
-  ]
+    MatOption,
+    MatSelectModule,
+]
 })
 export class CursosModule { }

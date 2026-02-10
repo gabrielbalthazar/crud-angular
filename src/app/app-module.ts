@@ -28,7 +28,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatProgressSpinnerModule,
     SharedModule,
     MatFormFieldModule,
-
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

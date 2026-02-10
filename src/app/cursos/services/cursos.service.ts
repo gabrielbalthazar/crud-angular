@@ -15,11 +15,18 @@ export class CursosService {
   ) { }
 
   getListCursos() {
-    console.log('1. Service: getListCursos chamado');
     return this.httpClient.get<Curso[]>(this.API)
       .pipe(
-        tap(() => console.log('2. Service: Resposta recebida do servidor')),
+        first(),
       );
+  }
+
+  save(body: { nome: any; categoria: any; }){
+    return this.httpClient.post<Curso>(this.API, body)
+      .pipe(
+        first(),
+      );
+
   }
 
 }
