@@ -1,0 +1,24 @@
+.header-toolbar{
+  background-color: #B014B0;
+  color: white;
+  margin: 0 auto;
+
+  span{
+    font-weight: 500;
+  }
+}
+
+.footer-toolbar{
+  background-color: #B014B0;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 0px;
+  max-height: 40px;
+
+  span{
+    margin: 0 auto;
+    font-size: 16px;
+  }
+}
