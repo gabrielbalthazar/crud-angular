@@ -36,8 +36,8 @@ export class CursosFormComponent implements OnInit {
   createForm() {
     this.form = this.formBuilder.group({
       id: [null],
-      nome: [null, Validators.required, Validators.maxLength(100)],
-      categoria: [null, Validators.required],
+      nome: [null, [Validators.required, Validators.maxLength(100)]],
+      categoria: [null, [Validators.required]],
     });
   }
 
@@ -55,6 +55,10 @@ export class CursosFormComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     this.service.save(this.form.value)
       .subscribe({
         next: () => {
@@ -69,6 +73,16 @@ export class CursosFormComponent implements OnInit {
 
   returnButton() {
     this.location.back();
+  }
+
+  getErrorMessage(fieldName: string) {
+    const control = this.form.get(fieldName);
+
+    if (control?.hasError('required')) {
+      return 'Campo obrigatório';
+    }
+
+    return 'Campo Inválido';
   }
 
 

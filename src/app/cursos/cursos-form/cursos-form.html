@@ -5,7 +5,9 @@
       <input matInput
       maxlength="100"
       placeholder="Nome"
-      formControlName="nome">
+      formControlName="nome"
+      required>
+      <mat-error *ngIf="form.get('nome')?.invalid">{{ getErrorMessage('nome') }}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -14,6 +16,7 @@
         <mat-option [value]="'Front-End'">Front-end</mat-option>
         <mat-option [value]="'Back-End'">Back-end</mat-option>
       </mat-select>
+      <mat-error *ngIf="form.get('categoria')?.invalid">{{ getErrorMessage('categoria') }}</mat-error>
     </mat-form-field>
   </form>
   <mat-card-actions>
