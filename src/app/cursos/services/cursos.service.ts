@@ -21,12 +21,17 @@ export class CursosService {
       );
   }
 
-  save(body: { nome: any; categoria: any; }) {
-    return this.httpClient.post<Curso>(this.API, body)
+  getById(id: number) {
+    return this.httpClient.get<Curso>(`${this.API}/${id}`)
       .pipe(
         first(),
       );
+  }
 
+  save(body: Partial<Curso>) {
+    return this.httpClient.post<Curso>(this.API, body).pipe(
+      first()
+    );
   }
 
 }

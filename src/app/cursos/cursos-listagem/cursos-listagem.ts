@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Curso } from '../model/curso';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -30,6 +30,7 @@ export class CursosListagemComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
+    private cd: ChangeDetectorRef,
   ) { }
 
   readonly columns: TableColumn[] = [
@@ -48,29 +49,30 @@ export class CursosListagemComponent implements OnInit, AfterViewInit {
   }
 
   getListaPaginado() {
-    this.service.getListCursos().subscribe({
-      next: (dados) => {
-        this.meusDados = dados;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.alertError('Erro ao carregar cursos.');
-      }
-    });
+    this.isLoading = true;
+    this.service.getListCursos()
+      .subscribe({
+        next: (dados) => {
+          this.meusDados = [...dados];
+          this.isLoading = false;
+          this.cd.detectChanges();
+        },
+        error: () => {
+          this.isLoading = false;
+          this.cd.detectChanges();
+        }
+      });
   }
-
 
   onAddCurso() {
     this.router.navigate(['cadastro'], { relativeTo: this.route });
   }
 
-  onEditCurso(id: number) {
-
+  onEditCurso(curso: Curso) {
+    this.router.navigate(['editar', curso.id], { relativeTo: this.route });
   }
 
   deleteCurso(id: number) {
-
   }
 
 
