@@ -15,12 +15,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog';
 
 @NgModule({
   declarations: [
     ErrorDialogComponent,
     AlertMessageComponent,
     TableComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +44,7 @@ import { MatInputModule } from '@angular/material/input';
     ErrorDialogComponent,
     AlertMessageComponent,
     TableComponent,
+    DeleteDialogComponent,
   ],
 })
 export class SharedModule { }

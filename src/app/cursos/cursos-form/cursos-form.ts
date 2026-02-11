@@ -36,7 +36,7 @@ export class CursosFormComponent implements OnInit {
   createForm() {
     this.form = this.formBuilder.group({
       id: [null],
-      nome: [null, Validators.required],
+      nome: [null, Validators.required, Validators.maxLength(100)],
       categoria: [null, Validators.required],
     });
   }

@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from '../../shared/components/table/table';
+import { DeleteDialogComponent } from '../../shared/components/delete-dialog/delete-dialog';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-cursos-listagem',
@@ -31,6 +33,7 @@ export class CursosListagemComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private cd: ChangeDetectorRef,
+    private alertService: AlertService,
   ) { }
 
   readonly columns: TableColumn[] = [
@@ -72,7 +75,34 @@ export class CursosListagemComponent implements OnInit, AfterViewInit {
     this.router.navigate(['editar', curso.id], { relativeTo: this.route });
   }
 
-  deleteCurso(id: number) {
+  openModalDelete(curso: any) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Excluir Curso',
+        message: `Tem certeza que deseja excluir o curso "${curso.nome}"?`,
+        confirmButtonText: 'Excluir',
+        cancelButtonText: 'Cancelar'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.confirmDelete(curso.id);
+      }
+    });
+  }
+
+  confirmDelete(id: number) {
+    this.service.delete(id).subscribe({
+      next: () => {
+        this.alertService.showAlert('Curso deletado com sucesso!', 'success');
+        this.getListaPaginado();
+      },
+      error: () => {
+        this.alertService.showAlert('Erro ao salvar curso', 'error')
+      }
+    });
   }
 
 
