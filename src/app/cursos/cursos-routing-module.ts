@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CursosComponent } from './cursos/cursos';
-import { CursoFormComponent } from './curso-form/curso-form';
+import { CursosListagemComponent } from './cursos-listagem/cursos-listagem';
+import { CursosFormComponent } from './cursos-form/cursos-form';
 
 const routes: Routes = [
   {
     path: '',
-    component: CursosComponent
+    component: CursosListagemComponent
   },
   {
     path: 'cadastro',
-    component: CursoFormComponent
+    component: CursosFormComponent
   },
 ];
 

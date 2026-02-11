@@ -1,0 +1,9 @@
+<app-table-component
+  [title]="'Listagem de Cursos'"
+  [columns]="columns"
+  [data]="meusDados"
+  [isLoading]="isLoading"
+  (onAdd)="onAddCurso()"
+  (onEdit)="onEditCurso($event)"
+  (onDelete)="deleteCurso($event)">
+</app-table-component>

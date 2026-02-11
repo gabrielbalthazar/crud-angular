@@ -21,7 +21,7 @@ export class CursosService {
       );
   }
 
-  save(body: { nome: any; categoria: any; }){
+  save(body: { nome: any; categoria: any; }) {
     return this.httpClient.post<Curso>(this.API, body)
       .pipe(
         first(),

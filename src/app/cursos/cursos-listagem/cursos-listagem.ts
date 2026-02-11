@@ -4,23 +4,22 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { CursosService } from '../services/cursos.service';
-import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TableColumn } from '../../shared/components/table/table';
 
 @Component({
-  selector: 'app-cursos',
+  selector: 'app-cursos-listagem',
   standalone: false,
-  templateUrl: './cursos.html',
-  styleUrl: './cursos.scss',
+  templateUrl: './cursos-listagem.html',
+  styleUrl: './cursos-listagem.scss',
   providers: [CursosService]
 })
-export class CursosComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'nome', 'categoria', 'acoes'];
+export class CursosListagemComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<Curso>([]);
-
+  meusDados: Curso[] = [];
   isLoading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -33,16 +32,25 @@ export class CursosComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
   ) { }
 
+  readonly columns: TableColumn[] = [
+    { columnDef: 'id', header: 'ID', cell: (row) => `${row.id}` },
+    { columnDef: 'nome', header: 'Nome', cell: (row) => `${row.nome}` },
+    { columnDef: 'categoria', header: 'Categoria', cell: (row) => `${row.categoria}` },
+  ];
+
   ngOnInit() {
+    this.getListaPaginado();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  getListaPaginado() {
     this.service.getListCursos().subscribe({
       next: (dados) => {
-        this.dataSource.data = dados;
-
-        setTimeout(() => {
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        });
-
+        this.meusDados = dados;
         this.isLoading = false;
       },
       error: (err) => {
@@ -52,14 +60,19 @@ export class CursosComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
 
   onAddCurso() {
     this.router.navigate(['cadastro'], { relativeTo: this.route });
   }
+
+  onEditCurso(id: number) {
+
+  }
+
+  deleteCurso(id: number) {
+
+  }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

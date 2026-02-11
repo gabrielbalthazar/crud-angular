@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { CursosRoutingModule } from './cursos-routing-module';
-import { CursosComponent } from './cursos/cursos';
+import { CursosListagemComponent } from './cursos-listagem/cursos-listagem';
 import { SharedModule } from '../shared/shared-module';
-import { Component, ViewChild } from '@angular/core';
 
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
@@ -20,13 +19,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatOption } from '@angular/material/select';
 import { MatSelectModule } from '@angular/material/select';
 
-import { CursoFormComponent } from './curso-form/curso-form';
+import { CursosFormComponent } from './cursos-form/cursos-form';
 
 
 @NgModule({
   declarations: [
-    CursosComponent,
-    CursoFormComponent,
+    CursosListagemComponent,
+    CursosFormComponent,
   ],
   imports: [
     CommonModule,

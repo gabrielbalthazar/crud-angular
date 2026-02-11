@@ -1,18 +1,17 @@
-import { AlertService } from './../../shared/services/alert.service';
+import { AlertService } from '../../shared/services/alert.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CursosService } from '../services/cursos.service';
-import { AlertMessageComponent } from '../../shared/components/alert-message/alert-message';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-curso-form',
+  selector: 'app-cursos-form',
   standalone: false,
-  templateUrl: './curso-form.html',
-  styleUrl: './curso-form.scss',
+  templateUrl: './cursos-form.html',
+  styleUrl: './cursos-form.scss',
 })
-export class CursoFormComponent implements OnInit {
+export class CursosFormComponent implements OnInit {
 
   form!: FormGroup;
 
@@ -32,8 +31,8 @@ export class CursoFormComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      nome: [null],
-      categoria: [null]
+      nome: [null, Validators.required],
+      categoria: [null, Validators.required],
     });
   }
 
