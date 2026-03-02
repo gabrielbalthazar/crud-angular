@@ -1,23 +1,56 @@
-<mat-toolbar>Cadastro de Cursos</mat-toolbar>
+<mat-toolbar class="title">Cadastro de Cursos</mat-toolbar>
 <mat-card>
   <form [formGroup]="form">
     <mat-form-field>
-      <input matInput
-      maxlength="100"
-      placeholder="Nome"
-      formControlName="nome"
-      required>
+      <input matInput maxlength="100" placeholder="Nome*" formControlName="nome" required>
       <mat-error *ngIf="form.get('nome')?.invalid">{{ getErrorMessage('nome') }}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Categorias</mat-label>
+      <mat-label>Categoria</mat-label>
       <mat-select formControlName="categoria">
-        <mat-option [value]="'Front-End'">Front-end</mat-option>
-        <mat-option [value]="'Back-End'">Back-end</mat-option>
+        <mat-option [value]="'Front-end'">Front-end</mat-option>
+        <mat-option [value]="'Back-end'">Back-end</mat-option>
+        <mat-option [value]="'Mobile'">Mobile</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('categoria')?.invalid">{{ getErrorMessage('categoria') }}</mat-error>
     </mat-form-field>
+
+    <mat-toolbar class="toolbar-aulas">
+      Aulas
+      <button matMiniFab type="button" (click)="addAula()">
+        <mat-icon aria-label="Adicionar aula">add</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-error *ngIf="isFormArrayRequired()">Adicione pelo menos uma aula!</mat-error>
+
+    <table formArrayName="aulas" style="width: 100%;">
+      <tr *ngFor="let aula of aulas.controls; let i = index" [formGroupName]="i">
+        <td>
+          <mat-form-field>
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="titulo">
+            <mat-error *ngIf="aula.get('titulo')?.touched && aula.get('titulo')?.hasError('required')">
+              Campo obrigatório
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>URL do Youtube</mat-label>
+            <input matInput formControlName="url">
+            <mat-error *ngIf="aula.get('url')?.touched && aula.get('url')?.hasError('required')">
+              Campo obrigatório
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td style="text-align: center; padding-bottom: 15px;">
+          <button mat-icon-button color="warn" type="button" (click)="removeAula(i)">
+            <mat-icon aria-label="Remover aula">delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
   </form>
   <mat-card-actions>
     <button mat-raised-button (click)="returnButton();">Retornar</button>

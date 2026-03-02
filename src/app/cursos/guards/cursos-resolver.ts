@@ -14,5 +14,5 @@ export const cursosResolver: ResolveFn<Curso> = (route, state) => {
     return service.getById(id);
   }
 
-  return of({ id: 0, nome: '', categoria: '' } as Curso);
+  return of({ id: 0, nome: '', categoria: '', aula: [] } as Curso);
 };

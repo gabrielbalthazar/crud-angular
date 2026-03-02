@@ -1,4 +1,4 @@
-mat-toolbar{
+.title{
   margin: 2rem auto;
   max-width: 80%;
   color: white;
@@ -24,6 +24,14 @@ mat-form-field {
 mat-card-actions{
   display: flex;
   gap: 1rem;
+}
+
+.toolbar-aulas{
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  display: flex;
+  gap:10px;
 }
 
 
