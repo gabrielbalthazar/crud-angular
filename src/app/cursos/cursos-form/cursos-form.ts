@@ -6,6 +6,7 @@ import { CursosService } from '../services/cursos.service';
 import { Location } from '@angular/common';
 import { Curso } from '../model/curso';
 import { Aula } from '../model/aula';
+import { FormUtilsService } from '../../shared/form/form-utils';
 
 @Component({
   selector: 'app-cursos-form',
@@ -29,6 +30,7 @@ export class CursosFormComponent implements OnInit {
     private alertService: AlertService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
+    public formUtils: FormUtilsService,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,10 @@ export class CursosFormComponent implements OnInit {
       id: [null],
       nome: [null, [Validators.required, Validators.maxLength(100)]],
       categoria: [null, [Validators.required]],
-      aulas: this.formBuilder.array(this.getAulas(curso), [Validators.required]),
+      aulas: this.formBuilder.array(
+        this.getAulas(curso),
+        { validators: [Validators.minLength(1)] }
+      ),
     });
   }
 
@@ -53,7 +58,7 @@ export class CursosFormComponent implements OnInit {
     return this.formBuilder.group({
       id: [aula.id],
       titulo: [aula.titulo, Validators.required],
-      url: [aula.url, Validators.required, Validators.pattern(/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/)],
+      url: [aula.url, Validators.required],
     });
   }
 
@@ -100,21 +105,6 @@ export class CursosFormComponent implements OnInit {
 
   returnButton() {
     this.location.back();
-  }
-
-  getErrorMessage(fieldName: string) {
-    const control = this.form.get(fieldName);
-
-    if (control?.hasError('required')) {
-      return 'Campo obrigatório';
-    }
-
-    return 'Campo Inválido';
-  }
-
-  isFormArrayRequired(){
-    const aulas = this.form.get('aulas') as FormArray;
-    return !aulas.valid && aulas.hasError('required') && aulas.touched;
   }
 
 
