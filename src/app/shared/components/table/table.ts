@@ -34,11 +34,19 @@ export class TableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  ngOnInit() {
+    this.displayedColumns = [...this.columns.map(c => c.columnDef), 'actions'];
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      const dataStr = JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) != -1;
+    };
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.displayedColumns = [...this.columns.map(c => c.columnDef), 'actions'];
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

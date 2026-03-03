@@ -18,6 +18,7 @@ import { FormUtilsService } from '../../shared/form/form-utils';
 export class CursosFormComponent implements OnInit {
 
   form!: FormGroup;
+  idEditMode = false;
 
   get aulas(): FormArray {
     return this.form.get('aulas') as FormArray;
@@ -35,7 +36,10 @@ export class CursosFormComponent implements OnInit {
 
   ngOnInit(): void {
     const curso: Curso = this.activatedRoute.snapshot.data['curso'];
-    this.getDadosEdit();
+    const isEditMode: boolean = this.activatedRoute.snapshot.url[0].path === 'editar';
+    if (isEditMode) {
+      this.getDadosEdit();
+    }
     this.form = this.formBuilder.group({
       id: [null],
       nome: [null, [Validators.required, Validators.maxLength(100)]],

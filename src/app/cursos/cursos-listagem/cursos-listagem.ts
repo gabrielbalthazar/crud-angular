@@ -94,13 +94,16 @@ export class CursosListagemComponent implements OnInit, AfterViewInit {
   }
 
   confirmDelete(id: number) {
+    setTimeout(() => this.isLoading = true, 0);
     this.service.delete(id).subscribe({
       next: () => {
         this.alertService.showAlert('Curso deletado com sucesso!', 'success');
         this.getListaPaginado();
+        setTimeout(() => this.isLoading = false, 0);
       },
       error: () => {
         this.alertService.showAlert('Erro ao salvar curso', 'error')
+        setTimeout(() => this.isLoading = false, 0);
       }
     });
   }
