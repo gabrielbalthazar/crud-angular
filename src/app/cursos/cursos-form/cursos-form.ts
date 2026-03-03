@@ -40,6 +40,7 @@ export class CursosFormComponent implements OnInit {
       id: [null],
       nome: [null, [Validators.required, Validators.maxLength(100)]],
       categoria: [null, [Validators.required]],
+      status: ['ATIVO'],
       aulas: this.formBuilder.array(
         this.getAulas(curso),
         { validators: [Validators.minLength(1)] }
@@ -54,7 +55,7 @@ export class CursosFormComponent implements OnInit {
     return curso.aulas.map(aula => this.criarAula(aula));
   }
 
-  private criarAula(aula: Aula = { id: 0, titulo: '', url: '' }) {
+  private criarAula(aula: Aula = { id: null, titulo: '', url: '' }) {
     return this.formBuilder.group({
       id: [aula.id],
       titulo: [aula.titulo, Validators.required],

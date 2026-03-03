@@ -1,5 +1,5 @@
 export interface Aula{
-  id: number;
+  id: any;
   titulo: string;
   url: string;
 }
